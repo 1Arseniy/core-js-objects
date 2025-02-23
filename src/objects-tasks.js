@@ -39,23 +39,17 @@ function mergeObjects(objects) {
   objects.forEach((el) => {
     const keys = Object.entries(el);
     keys.forEach((key) => {
+      const [keyName, value] = key;
       if (Object.prototype.hasOwnProperty.call(newObj, key[0])) {
-        newObj[key[0]] += key[1];
+        newObj[keyName] += value;
       } else {
-        const [allKey, value] = ;
-        newObj[allKey] = value;
-        // newObj[key[0]] = key[1];
+        newObj[keyName] = value;
       }
     });
   });
-  console.log(newObj);
+  return newObj;
 }
-console.log(
-  mergeObjects([
-    { a: 1, b: 2 },
-    { b: 3, c: 5 },
-  ])
-);
+
 /**
  * Removes a properties from an object.
  *
