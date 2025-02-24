@@ -124,10 +124,10 @@ function isEmptyObject(obj) {
  *    immutableObj.newProp = 'new';
  *    console.log(immutableObj) => {a: 1, b: 2}
  */
-function makeImmutable(/* obj */) {
-  throw new Error('Not implemented');
+function makeImmutable(obj) {
+  const frezeObject = Object.freeze(obj);
+  return frezeObject;
 }
-
 /**
  * Returns a word from letters whose positions are provided as an object.
  *
@@ -139,9 +139,17 @@ function makeImmutable(/* obj */) {
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
 function makeWord(/* lettersObject */) {
+  /* const keysInObj = Object.keys(lettersObject);
+  keysInObj.forEach((el) => {
+    let indexStr = lettersObject[el];
+    indexStr.forEach((i) => {
+      console.log(i);
+    });
+  }); */
+  // console.log(lettersObject[keysInObj]);
   throw new Error('Not implemented');
 }
-
+// console.log(makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }));
 /**
  * There is a queue for tickets to a popular movie.
  * The ticket seller sells one ticket at a time strictly in order and give the change.
@@ -173,10 +181,13 @@ function sellTickets(/* queue */) {
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
+  this.getArea = function () {
+    return this.width * this.height;
+  };
 }
-
 /**
  * Returns the JSON representation of specified object
  *
@@ -187,8 +198,9 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { height: 10, width: 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  const objJson = JSON.stringify(obj);
+  return objJson;
 }
 
 /**
