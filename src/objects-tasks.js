@@ -138,18 +138,29 @@ function makeImmutable(obj) {
  *    makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }) => 'aabbcc'
  *    makeWord({ H:[0], e: [1], l: [2, 3, 8], o: [4, 6], W:[5], r:[7], d:[9]}) => 'HelloWorld'
  */
-function makeWord(/* lettersObject */) {
-  /* const keysInObj = Object.keys(lettersObject);
-  keysInObj.forEach((el) => {
-    let indexStr = lettersObject[el];
-    indexStr.forEach((i) => {
-      console.log(i);
+function makeWord(lettersObject) {
+  const arr = [];
+  const values = Object.values(lettersObject);
+  let arrLength = 0;
+  values.forEach((el) => {
+    arrLength += el.length;
+  });
+  const word = () => {
+    const keysValues = Object.entries(lettersObject);
+    keysValues.forEach((el) => {
+      el[1].forEach((num) => {
+        if (arr.length === num) {
+          arr.push(el[0]);
+        }
+      });
     });
-  }); */
-  // console.log(lettersObject[keysInObj]);
-  throw new Error('Not implemented');
+    if (arr.length < arrLength) {
+      word();
+    }
+  };
+  word();
+  return arr.join('');
 }
-// console.log(makeWord({ a: [0, 1], b: [2, 3], c: [4, 5] }));
 /**
  * There is a queue for tickets to a popular movie.
  * The ticket seller sells one ticket at a time strictly in order and give the change.
@@ -167,7 +178,7 @@ function makeWord(/* lettersObject */) {
 function sellTickets(/* queue */) {
   throw new Error('Not implemented');
 }
-
+// console.log(sellTickets([25, 25, 50]));
 /**
  * Returns the rectangle object with width and height parameters and getArea() method
  *
@@ -184,7 +195,7 @@ function sellTickets(/* queue */) {
 function Rectangle(width, height) {
   this.width = width;
   this.height = height;
-  this.getArea = function () {
+  this.getArea = function result() {
     return this.width * this.height;
   };
 }
@@ -290,8 +301,17 @@ function sortCitiesArray(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const countryList = new Map();
+  array.forEach((item) => {
+    if (!countryList.get(keySelector(item))) {
+      countryList.set(keySelector(item), [valueSelector(item)]);
+    } else {
+      const cities = countryList.get(keySelector(item));
+      cities.push(valueSelector(item));
+    }
+  });
+  return countryList;
 }
 
 /**
