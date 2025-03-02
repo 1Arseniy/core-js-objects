@@ -175,10 +175,48 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  const arr25 = [];
+  const arr50 = [];
+  const arr100 = [];
+  const isTrue = [];
+  if (queue.length === 0) {
+    isTrue.push(true);
+  }
+  queue.forEach((el) => {
+    if (el === 25) {
+      arr25.push(el);
+    }
+    if (el === 50) {
+      if (arr25.length > 0) {
+        arr50.push(el);
+        arr25.pop();
+        isTrue.push(true);
+      } else {
+        isTrue.push(false);
+      }
+    }
+    if (el === 100) {
+      if (arr25.length === 3) {
+        arr100.push(el);
+        arr25.slice(-3);
+        isTrue.push(true);
+      } else {
+        isTrue.push(false);
+      }
+      if (arr50.length === 1 && arr25.length === 1) {
+        arr100.push(el);
+        arr50.pop();
+        arr25.pop();
+        isTrue.push(true);
+      } else {
+        isTrue.push(false);
+      }
+    }
+  });
+  isTrue.filter((el) => el === false);
+  return isTrue[0];
 }
-// console.log(sellTickets([25, 25, 50]));
 /**
  * Returns the rectangle object with width and height parameters and getArea() method
  *
